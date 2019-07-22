@@ -5,8 +5,8 @@ public class Main
 {
   public static void main(String[] args)
   {
-        int i=0;
-        while(i<100000)
+        int mover=0;
+        while(mover<100000)
         {
           int n = (int)(Math.random()*10)%4;
           switch(n)
@@ -52,10 +52,11 @@ public class Main
             break;
           }
         }
-          i++;
+          mover++;
           Board.delay();
           Board.clearConsole();
           Board.checkfordeleterow();
+          Board.EndingCondition();
       }
   }
 }
@@ -133,13 +134,34 @@ class Board
       }
       if(count==18)
       {
-        System.out.println("Row to be deleted is at index " + i);
         for(int k=1;k<19;k++)
         {
           board[i][k]=' ';
         }
+        for(int l=i;l>0;l--)
+        {
+          for(int m=1;m<19;m++)
+          {
+            board[l][m] = board[l-1][m];
+          }
+        }
       }
-      // System.out.println(count);
+    }
+  }
+  static void EndingCondition()
+  {
+    for(int i=0;i<3;i++)
+    {
+      for(int j=1;j<19;j++)
+      {
+        if(board[i][j]=='#')
+        {
+            Board.clearConsole();
+            System.out.println("Game Over");
+            System.exit(0);
+            break;
+        }
+      }
     }
   }
 }
